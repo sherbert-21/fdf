@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 16:10:45 by sherbert          #+#    #+#             */
-/*   Updated: 2021/10/24 15:13:06 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/05 14:17:37 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,15 @@ t_flag				flags_init(t_flag flags, const char *s);
 const char			*s_init_one(const char *s);
 const char			*s_init_two(const char *s);
 
+char				*ft_new_left_str(char *left_str);
+char				*ft_read_to_left_str(int fd, char *left_str);
+char				*ft_get_line(char *left_str);
+char				*ft_strjoin_gnl(char *left_str, char *buff);
+char				*ft_strchr_gnl(char *s, int c);
+size_t				ft_strlen_gnl(char *s);
+char				*get_next_line(int fd);
+
 void				save_free(char **str);
-void				save_free_int(int **str);
-char				*ft_strdup_gnl(char *s1, int *err);
-char				*ft_strjoin_gnl(char *s1, char *s2, int *err);
-char				*ft_strcpy(char *dest, char *src);
-int					get_next_line(int fd, char **line);
-char 				*new_s_buf(char *s_buf, char *n, int *ret);
-int					ft_return(int ret);
-void				init_value(int *ret, char **n);
 
 void				*ft_calloc_int(size_t nmemb);
 void				ft_bzero_int(void *s, size_t len);

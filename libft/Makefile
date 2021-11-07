@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+         #
+#    By: sherbert <sherbert@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/07 19:44:28 by sherbert          #+#    #+#              #
-#    Updated: 2021/10/22 09:51:52 by sherbert         ###   ########.fr        #
+#    Updated: 2021/11/04 16:46:59 by sherbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FLAGS	=  -c -Wall -Werror -Wextra 
+FLAGS	=  -c -Wall -Werror -Wextra -fsanitize=address
 
 HEAD = libft.h
 

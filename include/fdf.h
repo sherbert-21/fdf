@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sherbert <sherbert@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:50:09 by sherbert          #+#    #+#             */
-/*   Updated: 2021/10/25 21:50:15 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/01 22:56:47 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,16 @@ typedef struct s_data
 {
     int         **a;
     int         size;
+    int         width;
     int         *pic;
     t_mlx_init  *mlx;
 }              t_data;
 
 int   check_map_size(char *argv);
+int   check_map_width(char *argv);
+int     *fill_data(char *line, t_data *data);
+t_data    *init_map(char **argv, t_data *data);
+int map_check(char *argv);
+int err(char *name);
 
 #endif
