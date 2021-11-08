@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:01:58 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/08 17:03:10 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:26:27 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int   check_map_width(char *argv)
     fd = open(argv[1], O_RDONLY);
     if (!fd)
         err("FILE_OPEN_ERR");
-    line = get_next_line(fd);
-    while (line && *line)
+    while (get_next_line(fd, &line))
     {
-        if (max_size < ft_strlen(line))
-                max_size = ft_strlen(line);
-        line = get_next_line(fd);
+        ft_printf("%s", line);
+        if(max_size < ft_strlen(line))
+            max_size = ft_strlen(line);
     }
     save_free(&line);
+    ft_printf("%d\n", max_size);
     return (max_size);
 }
 
@@ -41,17 +41,13 @@ int   check_map_height(char *argv)
     int fd;
 
     max_size = 0;
+    line = NULL;
     fd = open(argv[1], O_RDONLY);
     if (!fd)
         err("FILE_OPEN_ERR");
-    line = get_next_line(fd);
-    ft_printf("%s\n", line);
-    while (line)
-    {
-        ft_printf("%d\n", max_size);
+    while (get_next_line(fd, &line))
         max_size++;
-        line = get_next_line(fd);
-    }
+    ft_printf("%d", max_size);
     save_free(&line);
     return (max_size);
 }
@@ -110,7 +106,7 @@ static int *fill_line(char *line, int j, t_data *data)
     }
     while (i < data->width)
     {
-        a[i] = 0;
+        data->a[j][i] = 0;
         i++;
     }
     return (a);
@@ -123,13 +119,10 @@ t_data  *init_map(char *argv, t_data *data)
     int i;
 
     fd = open(argv, O_RDONLY);
-    line = get_next_line(fd);
+    line = NULL;
     i = -1;
-    while (++i < data->height && (line && *line))
-    {
+    while (++i < data->height && get_next_line(fd, &line))
         data = fill_line(line, i, data);
-        line = get_next_line(fd);
-    }
     save_free(&line);
     return (data);
 }

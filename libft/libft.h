@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sherbert <sherbert@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 16:10:45 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/05 14:17:37 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:22:16 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,10 @@ t_flag				flags_init(t_flag flags, const char *s);
 const char			*s_init_one(const char *s);
 const char			*s_init_two(const char *s);
 
-char				*ft_new_left_str(char *left_str);
-char				*ft_read_to_left_str(int fd, char *left_str);
-char				*ft_get_line(char *left_str);
-char				*ft_strjoin_gnl(char *left_str, char *buff);
-char				*ft_strchr_gnl(char *s, int c);
-size_t				ft_strlen_gnl(char *s);
-char				*get_next_line(int fd);
+char				*ft_strdup_gnl(char *s1, int *err);
+char				*ft_strjoin_gnl(char *s1, char *s2, int *err);
+char				*ft_strcpy(char *dest, char *src);
+int					get_next_line(int fd, char **line);
 
 void				save_free(char **str);
 
@@ -112,6 +109,6 @@ void				*ft_calloc_int(size_t nmemb);
 void				ft_bzero_int(void *s, size_t len);
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1
 # endif
 #endif

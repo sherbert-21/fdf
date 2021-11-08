@@ -21,17 +21,17 @@ int err_map_check(char *argv)
 	if (!valid_input_err(argv))
 	{
 		line = NULL;
-    	line = get_next_line(fd);
     	fd = open(argv, O_RDONLY);
-   		while (line && *line)
+   		while (get_next_line(fd, &line))
     	{
 			while (*line)
 			{
-				if (!(ft_isdigit(*line) || *line == ' ' || *line == '-'))
+				ft_printf("%c", *line);
+				if (!((*line >= '0' && *line <= '9') || *line == ' ' || *line == '-'))
 					return (err("\t\t  ERR!\n \t\t\t-Inadmissible symbols"));
 				line++;
 			}
-			line = get_next_line(fd);
+			ft_printf("\n");
 		}
 		ft_printf("\t\t  OK\n");
     	save_free(&line);
