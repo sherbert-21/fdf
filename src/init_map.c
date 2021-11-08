@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:01:58 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/08 14:54:04 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:03:10 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ int   check_map_height(char *argv)
     int fd;
 
     max_size = 0;
-    line = NULL;
     fd = open(argv[1], O_RDONLY);
     if (!fd)
         err("FILE_OPEN_ERR");
     line = get_next_line(fd);
-    while (line && *line)
+    ft_printf("%s\n", line);
+    while (line)
     {
+        ft_printf("%d\n", max_size);
         max_size++;
         line = get_next_line(fd);
     }
@@ -92,7 +93,7 @@ int   check_map_height(char *argv)
 //     return (data);
 // }
 
-static int *fill_line(char *line, t_data *data)
+static int *fill_line(char *line, int j, t_data *data)
 {
     int i;
     int *a;
@@ -102,7 +103,7 @@ static int *fill_line(char *line, t_data *data)
     {
         while (*line == ' ')
             line++;
-        a[i] = ft_atoi(line);
+        data->a[j][i] = ft_atoi(line);
         while (ft_isdigit(*line))
             line++;
         i++;
@@ -126,7 +127,7 @@ t_data  *init_map(char *argv, t_data *data)
     i = -1;
     while (++i < data->height && (line && *line))
     {
-        data->a[i] = fill_line(line, data);
+        data = fill_line(line, i, data);
         line = get_next_line(fd);
     }
     save_free(&line);
