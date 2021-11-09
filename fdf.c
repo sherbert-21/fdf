@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:48:18 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/09 17:21:09 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/09 20:54:44 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static t_data   *init_data(char *argv)
     data->a = NULL;
     data->pic = ft_calloc(WIDTH * HEIGHT + 1, sizeof(int));
     data->mlx = init_mlx();
+    return (data);
 }
 
 int				main(int argc, char **argv)
@@ -50,7 +51,7 @@ int				main(int argc, char **argv)
     if (argc != 2 || valid_input_err(argv[1]))
         return (err("\n"));
 	data = init_data(argv[1]);
-    data = init_map(data, argv[1]);
+    data = init_map(argv[1], data);
     ft_printf("yos");
     // int i;
     // int j;

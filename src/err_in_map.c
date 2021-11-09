@@ -10,3 +10,21 @@ int	valid_input_err(char *argv)
 		return (err("ERR!\n \t\t\t-Not '*.fdf' file"));
 	return (SUCCESS);
 }
+
+t_data	*free_data(t_data *data)
+{
+	int x;
+	int y;
+
+	y = -1;
+	while (++y < data->height)
+	{
+		x = -1;
+		while (++x < data->width)
+			data->a[y][x] = 0;
+		save_free(&data->a[y]);
+	}
+	data->width = 0;
+	data->height = 0;
+	return (data);
+}
