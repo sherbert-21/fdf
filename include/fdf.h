@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:50:09 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/08 14:54:18 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:48:35 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ typedef struct s_data
     int         height;
     int         *pic;
     t_mlx_init  *mlx;
+    t_list      *list;
 }              t_data;
 
 int   check_map_height(char *argv);
 int   check_map_width(char *argv);
 int     *fill_data(char *line, t_data *data);
 t_data    *init_map(char *argv, t_data *data);
-int err_map_check(char *argv);
+int	valid_input_err(char *argv);
 int err(char *name);
 
 #endif

@@ -6,123 +6,97 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:01:58 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/08 18:26:27 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/09 17:42:32 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int   check_map_width(char *argv)
+static t_list *take_list(char *argv)
 {
-    int max_size;
-    char *line;
-    int fd;
+	t_list *list;
+	char *line;
+	int fd;
 
-    max_size = 0;
-    line = NULL;
-    fd = open(argv[1], O_RDONLY);
-    if (!fd)
-        err("FILE_OPEN_ERR");
-    while (get_next_line(fd, &line))
-    {
-        ft_printf("%s", line);
-        if(max_size < ft_strlen(line))
-            max_size = ft_strlen(line);
-    }
-    save_free(&line);
-    ft_printf("%d\n", max_size);
-    return (max_size);
+	fd = open(argv, O_RDONLY);
+	line = NULL;
+	while (get_next_line(fd, &line))
+		ft_lstadd_back(&list, ft_lstnew(line));
+	ft_lstadd_back(&list, ft_lstnew(line));
+	return (list);
 }
 
-int   check_map_height(char *argv)
+static void		width_and_heigth_of_map(t_list *file, t_data *data)
 {
-    int max_size;
-    char *line;
-    int fd;
-
-    max_size = 0;
-    line = NULL;
-    fd = open(argv[1], O_RDONLY);
-    if (!fd)
-        err("FILE_OPEN_ERR");
-    while (get_next_line(fd, &line))
-        max_size++;
-    ft_printf("%d", max_size);
-    save_free(&line);
-    return (max_size);
+	while (file)
+	{
+		if (data->width < ft_strlen(file->content))
+			data->width = ft_strlen(file->content);
+		data->height++;
+		file = file->next;
+	}
 }
 
-// int     *fill_data(char *line, t_data *data)
-// {
-//     int *a[data->width];
-//     int i;
-
-//     i = -1;
-//     while (*line && i < data->width)
-//     {
-//         while (ft_isdigit(*line) && *line)
-//             line++;
-//         a[++i] = ft_atoi(line);
-//         while (!ft_isdigit && *line)
-//             line++;
-//     }
-//     while (i < data->width)
-//         a[++i] = 0;
-//     return (a);
-// }
-
-// t_data    *init_map(char **argv, t_data *data)
-// {
-//     char *line;
-//     int fd;
-//     int i;
-
-//     line = NULL;
-//     fd = open(argv[1], O_RDONLY);
-//     i = -1;
-//     if (!fd)
-//         err("FILE_OPEN_ERR");
-//     while (get_next_line(fd, &line))
-//         while (++i < data->width)
-//             data->a[i] = fill_data(line, data);
-//     save_free(&line);
-//     return (data);
-// }
-
-static int *fill_line(char *line, int j, t_data *data)
+static int  *fill_line(char *line, t_data *data)
 {
-    int i;
-    int *a;
+    int *tmp;
+    int x;
 
-    i = 0;
+    x = -1;
+    tmp = ft_calloc(data->width + 1, sizeof(int));
+    if (!tmp)
+        return (NULL);
     while (*line && line)
     {
         while (*line == ' ')
             line++;
-        data->a[j][i] = ft_atoi(line);
-        while (ft_isdigit(*line))
+        if (!(ft_isdigit(*line) || *line == '-'))
+            return (NULL);
+        tmp[++x] = ft_atoi(line);
+        while (*line != ' ')
+        {
+            if (!(ft_isdigit(*line) || *line == '-'))
+                return (NULL);
             line++;
-        i++;
+        }
     }
-    while (i < data->width)
-    {
-        data->a[j][i] = 0;
-        i++;
-    }
-    return (a);
+    while (++x < data->width)
+        tmp[x] = 0;
+    return (tmp);
+}
+
+static int			**file_into_map(t_list *file, t_data *data)
+{
+	int	    **tmp;
+	char	*line;
+	int		y;
+
+	y = -1;
+	width_and_heigth_of_map(file, data);
+    tmp = ft_calloc(data->height + 1, sizeof(int *));
+	if (!tmp)
+		return(NULL);
+	while (++y < data->height)
+	{
+		line = ft_strdup(file->content);
+		tmp[y] = fill_line(line, data);
+        if (!tmp[y])
+            return (NULL);
+		ft_lstdelone(file, save_free);
+        save_free(&line);
+		file = file->next;
+	}
+	return (tmp);
 }
 
 t_data  *init_map(char *argv, t_data *data)
 {
-    char *line;
-    int fd;
-    int i;
+   t_list *list;
 
-    fd = open(argv, O_RDONLY);
-    line = NULL;
-    i = -1;
-    while (++i < data->height && get_next_line(fd, &line))
-        data = fill_line(line, i, data);
-    save_free(&line);
-    return (data);
+   list = take_list(argv);
+   data->a = file_into_map(list, data);
+   if (!data->a)
+        return(NULL);
+    else
+        return (data->a);
 }
