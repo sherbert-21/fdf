@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:01:58 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/09 20:59:44 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:26:52 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,51 +37,56 @@ static int		width_and_heigth_of_map(t_list *file, t_data *data)
     return (SUCCESS);
 }
 
-static int  *fill_line(char *line, t_data *data)
+static int  err_check_map(t_list *file)
 {
-    int *tmp;
-    int x;
+    char    *line;
 
-    x = 0;
-    tmp = ft_calloc(data->width + 1, sizeof(int));
-    if (!tmp)
-        return (NULL);
-    while (*line && line)
+    while (file)
     {
-        while (*line == ' ')
-            line++;
-        tmp[x] = ft_atoi(line);
-        x++;
-        while (*line != ' ')
-            line++;
+        line = ft_strdup(file->content);
+        while (*line)
+	    {
+            ft_printf("%c ", *line);
+		    if (!(ft_isdigit(*line) || *line == ' ' || *line == '-'))
+			    return (ERR);
+		    line++;
+	    }
+        ft_printf("\n");
+        file = file->next;
     }
-    while (x < data->width)
-        tmp[x++] = 0;
-    return (tmp);
+    return (SUCCESS);
 }
 
-static int			**file_into_map(t_list *file, t_data *data)
+static int **file_into_map(t_list *file, t_data *data)
 {
-	int	    **tmp;
-	char	*line;
-	int		y;
+    int    **tmp;
+    char    *line;
+    int     y;
+    int     x;
 
-	y = -1;
-	if (width_and_heigth_of_map(file, data))
+    width_and_heigth_of_map(file, data);
+    if (err_check_map(file))
         return (NULL);
+    y = -1;
     tmp = ft_calloc(data->height + 1, sizeof(int *));
-	if (!tmp)
-		return(NULL);
-	while (++y < data->height && file)
-	{
-		line = ft_strdup(file->content);
-		tmp[y] = fill_line(line, data);
-        if (!tmp[y])
-            return (NULL);
-		ft_lstdelone(file, free);
-		file = file->next;
-	}
-	return (tmp);
+    while (++y < data->height)
+    {
+        x = 0;
+        line = ft_strdup(file->content);
+        tmp[y] = ft_calloc(data->width + 1, sizeof(int));
+        while (*line && line)
+        {
+            while (*line == ' ' && *line)
+                line++;
+            tmp[y][x++] = ft_atoi(line);
+            while (*line != ' ' && *line)
+                line++;
+        }
+        while (x < data->width)
+            tmp[y][x++] = 0;
+        file = file->next;
+    }
+    return (tmp);
 }
 
 t_data  *init_map(char *argv, t_data *data)
@@ -89,6 +94,8 @@ t_data  *init_map(char *argv, t_data *data)
     t_list *file;
 	char *line;
 	int fd;
+    int x;
+    int y;
 
 	fd = open(argv, O_RDONLY);
     line = NULL;
@@ -97,8 +104,5 @@ t_data  *init_map(char *argv, t_data *data)
         ft_lstadd_back(&file, ft_lstnew(line));
 	ft_lstadd_back(&file, ft_lstnew(line));
     data->a = file_into_map(file, data);
-    ft_printf("yos");
-    if (!data->a)
-        data = free_data(data);
     return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:48:18 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/09 20:54:44 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/10 10:29:43 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ static t_mlx_init   *init_mlx(void)
 		return (err("ERR_MALLOC_MLX"));
     ft_bzero(mlx, sizeof(t_mlx_init));
     mlx = mlx_init();
+    mlx->data = (int *)mlx_get_data_addr(mlx->img, &mlx->bpp,
+				&mlx->sl, &mlx->endian);
     if (!mlx)
         return (err("ERR_MALLOC_MLX"));
     return (mlx);
 }
 
-static t_data   *init_data(char *argv)
+static t_data   *init_data()
 {
     t_data *data;
     int i;
@@ -50,9 +52,8 @@ int				main(int argc, char **argv)
 
     if (argc != 2 || valid_input_err(argv[1]))
         return (err("\n"));
-	data = init_data(argv[1]);
+	data = init_data();
     data = init_map(argv[1], data);
-    ft_printf("yos");
     // int i;
     // int j;
     // for (i = 0; i < data->width; i++)
@@ -61,13 +62,13 @@ int				main(int argc, char **argv)
     //         ft_printf("%d", data->a[i][j]);
     //     ft_printf("\n");
     // }
-    // data->mlx->win = mlx_new_window(data->mlx->mlx, WIDTH, HEIGHT, "FdF");
-    // if (!data->mlx->win)
-	// 		return (err("ERR_INIT_WIN"));
+    data->mlx->win = mlx_new_window(data->mlx->mlx, WIDTH, HEIGHT, "FdF");
+    if (!data->mlx->win)
+			return (err("ERR_INIT_WIN"));
 	// mlx_hook(data->win, 2, 1L << 0, key_pressed, data);
 	// mlx_hook(data->win, 3, 1L << 1, key_released, data);
-	// mlx_hook(data->win, 17, 1L << 17, event_destroy_window, data);
+	mlx_hook(data->mlx->win, 17, 1L << 17, event_destroy_window, data);
 	// mlx_loop_hook(data->mlx, loop, data);
-	// mlx_loop(data->mlx);
+	mlx_loop(data->mlx);
 	return (0);
 }

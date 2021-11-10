@@ -5,7 +5,8 @@ FLAGS	= 	-Wall -Werror -Wextra -g -fsanitize=address
 SRC		= 	src/err_in_map.c \
 			src/init_map.c \
 			src/err_print.c \
-            fdf.c
+			src/events.c \
+            fdf.c 
 
 OBJ		= 	$(SRC:.c=.o)
 

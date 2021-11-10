@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:50:09 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/09 19:18:10 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/10 10:28:57 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_mlx_init
     int     bpp;
     int     endian;
     int     sl;
+    int     *data;
 }              t_mlx_init;
 
 typedef struct s_data
@@ -60,5 +61,6 @@ t_data          *init_map(char *argv, t_data *data);
 int             valid_input_err(char *argv);
 int             err(char *name);
 t_data          *free_data(t_data *data);
+int		        event_destroy_window(void *param);
 
 #endif
