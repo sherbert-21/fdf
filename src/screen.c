@@ -6,9 +6,10 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:20:24 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/10 10:25:49 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/10 11:56:32 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/fdf.h"
 
+void    touch(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:50:09 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/10 10:28:57 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/10 11:56:28 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ typedef struct s_mlx_init
     int     *data;
 }              t_mlx_init;
 
+typedef struct pic
+{
+    float   x_step;
+    float   y_step;
+    float   x;
+    float   x1;
+    float   y;
+    float   y1;
+}           t_pic;
+
 typedef struct s_data
 {
     int         **a;
@@ -52,6 +62,7 @@ typedef struct s_data
     int         height;
     int         *pic;
     t_mlx_init  *mlx;
+    t_pic       *pic;
 }              t_data;
 
 int             check_map_height(char *argv);

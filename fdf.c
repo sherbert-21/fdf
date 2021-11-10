@@ -6,11 +6,28 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:48:18 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/10 10:29:43 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/10 11:59:00 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/fdf.h"
+
+static t_pic        *init_pic(void)
+{
+    t_pic   *pic;
+
+    pic = malloc(sizeof(t_pic));
+    if (!pic)
+		return (err("ERR_MALLOC_PIC"));
+    ft_bzero(pic, sizeof(t_pic));
+    pic->x = 0;
+    pic->x1 = 0;
+    pic->y = 0;
+    pic->y1 = 0;
+    pic->x_step = 0;
+    pic->y_step = 0;
+    return (pic);
+}
 
 static t_mlx_init   *init_mlx(void)
 {
@@ -43,6 +60,7 @@ static t_data   *init_data()
     data->a = NULL;
     data->pic = ft_calloc(WIDTH * HEIGHT + 1, sizeof(int));
     data->mlx = init_mlx();
+    data->pic = init_pic();
     return (data);
 }
 
@@ -54,14 +72,6 @@ int				main(int argc, char **argv)
         return (err("\n"));
 	data = init_data();
     data = init_map(argv[1], data);
-    // int i;
-    // int j;
-    // for (i = 0; i < data->width; i++)
-    // {
-    //     for (j = 0; j < data->height; j++)
-    //         ft_printf("%d", data->a[i][j]);
-    //     ft_printf("\n");
-    // }
     data->mlx->win = mlx_new_window(data->mlx->mlx, WIDTH, HEIGHT, "FdF");
     if (!data->mlx->win)
 			return (err("ERR_INIT_WIN"));
