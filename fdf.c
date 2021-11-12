@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:48:18 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/10 11:59:00 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:07:05 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ static t_pic        *init_pic(void)
 		return (err("ERR_MALLOC_PIC"));
     ft_bzero(pic, sizeof(t_pic));
     pic->x = 0;
-    pic->x1 = 0;
     pic->y = 0;
-    pic->y1 = 0;
     pic->x_step = 0;
     pic->y_step = 0;
+    pic->dir_y = 0;
     return (pic);
 }
 
@@ -60,7 +59,7 @@ static t_data   *init_data()
     data->a = NULL;
     data->pic = ft_calloc(WIDTH * HEIGHT + 1, sizeof(int));
     data->mlx = init_mlx();
-    data->pic = init_pic();
+    data->screen = init_pic();
     return (data);
 }
 
@@ -68,13 +67,15 @@ int				main(int argc, char **argv)
 {
 	t_data *data;
 
-    if (argc != 2 || valid_input_err(argv[1]))
+    // if (argc != 2 || valid_input_err(argv[1]))
+    if (valid_input_err(argv[1]))
         return (err("\n"));
 	data = init_data();
     data = init_map(argv[1], data);
     data->mlx->win = mlx_new_window(data->mlx->mlx, WIDTH, HEIGHT, "FdF");
     if (!data->mlx->win)
 			return (err("ERR_INIT_WIN"));
+    bresenham(0, ft_atoi(argv[2]), 0, ft_atoi(argv[3]), data);
 	// mlx_hook(data->win, 2, 1L << 0, key_pressed, data);
 	// mlx_hook(data->win, 3, 1L << 1, key_released, data);
 	mlx_hook(data->mlx->win, 17, 1L << 17, event_destroy_window, data);

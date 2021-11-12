@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:01:58 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/10 09:26:52 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/12 14:56:18 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,10 @@ static int  err_check_map(t_list *file)
         line = ft_strdup(file->content);
         while (*line)
 	    {
-            ft_printf("%c ", *line);
 		    if (!(ft_isdigit(*line) || *line == ' ' || *line == '-'))
 			    return (ERR);
 		    line++;
 	    }
-        ft_printf("\n");
         file = file->next;
     }
     return (SUCCESS);
