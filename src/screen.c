@@ -6,13 +6,13 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:20:24 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/12 16:12:16 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/12 17:53:50 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void    bresenham(float x0, float x1, float y0, float y1, t_data *data)
+void    bresenham(float x0, float y0, float x1, float y1, t_data *data)
 {
     int error;
     int deltaerr;
@@ -53,4 +53,24 @@ void    bresenham(float x0, float x1, float y0, float y1, t_data *data)
     //     x0 += data->screen->x_step;
     //     y0 += data->screen->y_step;
     // }
+}
+
+void    draw(t_data *data)
+{
+    int x;
+    int y;
+    int zoom;
+
+    y = -1;
+    zoom = 30;
+    while (++y < data->height)
+    {
+        x = -1;
+        while (++x < data->width)
+        {
+            ft_printf("(%d, %d)\t", x, y);
+            bresenham(x * zoom, y * zoom, (x + 1) * zoom, y * zoom, data);
+            bresenham(x * zoom, y * zoom, x * zoom, (y + 1) * zoom, data);
+        }
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:50:09 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/12 16:09:00 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:46:16 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int             valid_input_err(char *argv);
 int             err(char *name);
 t_data          *free_data(t_data *data);
 int		        event_destroy_window(void *param);
-void    bresenham(float x0, float x1, float y0, float y1, t_data *data);
+void            bresenham(float x0, float x1, float y0, float y1, t_data *data);
+void    draw(t_data *data);
+int		key_pressed(int key, void *param);
 
 #endif
