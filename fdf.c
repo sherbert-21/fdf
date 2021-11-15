@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sherbert <sherbert@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:48:18 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/12 18:14:11 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:48:44 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static t_data   *init_data()
 	ft_bzero(data, sizeof(t_data));
     data->width = 0;
     data->height = 0;
+    data->zoom = 30;
     data->a = NULL;
     data->pic = ft_calloc(WIDTH * HEIGHT + 1, sizeof(int));
     data->mlx = init_mlx();
