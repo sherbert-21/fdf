@@ -1,23 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_net.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/16 13:19:15 by sherbert          #+#    #+#             */
+/*   Updated: 2021/11/16 13:19:16 by sherbert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/fdf.h"
-
-void    bresenham(float x0, float y0, float x1, float y1, t_data *data)
-{
-    float max;
-    float x_step;
-    float y_step;
-
-    max = fabsf(x1 - x0);
-    if (max < fabsf(y1 - y0))
-        max = fabsf(y1 - y0);
-    x_step = (x1 - x0) / max;
-    y_step = (y1 - y0) / max;
-    while ((int)(x1 - x0) || (int)(y1 - y0))
-    {
-        mlx_pixel_put(data->mlx->mlx, data->mlx->win, x0, y0, 0xffffff);
-        x0 += x_step;
-        y0 += y_step;
-    }
-}
 
 void    draw_angle(int x, int y, int side, int zoom, t_data *data)
 {
@@ -25,7 +18,7 @@ void    draw_angle(int x, int y, int side, int zoom, t_data *data)
         bresenham(x * zoom, y * zoom, (x + 1) * zoom, y * zoom, data);
     else
         bresenham(x * zoom, (y + 1) * zoom, (x + 1) * zoom, (y + 1) * zoom, data);
-    if (side == 1 ||side == 4)
+    if (side == 1 || side == 4)
         bresenham(x * zoom, y * zoom, x * zoom, (y + 1) * zoom, data);
     else
         bresenham((x + 1) * zoom, y * zoom, (x + 1) * zoom, (y + 1) * zoom, data);

@@ -7,6 +7,7 @@ SRC		= 	src/err_in_map.c \
 			src/err_print.c \
 			src/events.c \
 			src/screen.c \
+			src/draw_net.c \
             fdf.c 
 
 OBJ		= 	$(SRC:.c=.o)

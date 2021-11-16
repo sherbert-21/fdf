@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sherbert <sherbert@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:50:09 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/14 19:52:38 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/16 13:31:06 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
     int         width;
     int         height;
     int         zoom;
+    int         color;
     int         *pic;
     t_mlx_init  *mlx;
     t_pic       *screen;
@@ -75,10 +76,10 @@ t_data          *free_data(t_data *data);
 int		        event_destroy_window(void *param);
 
 void            bresenham(float x0, float x1, float y0, float y1, t_data *data);
-void    draw_angle(int x, int y, int side, int zoom, t_data *data);
-void    draw_square(int x, int y, int zoom, t_data *data);
-void    draw_side(int x, int y, int side, int zoom, t_data *data);
-void    draw(t_data *data);
+void            draw_angle(int x, int y, int side, int zoom, t_data *data);
+void            draw_square(int x, int y, int zoom, t_data *data);
+void            draw_side(int x, int y, int side, int zoom, t_data *data);
+void            draw(t_data *data);
 
 int		key_pressed(int key, void *param);
 
