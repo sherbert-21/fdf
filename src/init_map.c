@@ -6,7 +6,7 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 20:01:58 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/12 14:56:18 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:07:35 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ static int **file_into_map(t_list *file, t_data *data)
         return (NULL);
     y = -1;
     tmp = ft_calloc(data->height + 1, sizeof(int *));
-    while (++y < data->height)
+    while (++y < data->height && tmp)
     {
         x = 0;
         line = ft_strdup(file->content);
         tmp[y] = ft_calloc(data->width + 1, sizeof(int));
-        while (*line && line)
+        while (*line && line && tmp[y])
         {
             while (*line == ' ' && *line)
                 line++;
@@ -80,7 +80,7 @@ static int **file_into_map(t_list *file, t_data *data)
             while (*line != ' ' && *line)
                 line++;
         }
-        while (x < data->width)
+        while (x < data->width && tmp[y])
             tmp[y][x++] = 0;
         file = file->next;
     }

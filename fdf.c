@@ -6,26 +6,42 @@
 /*   By: sherbert <sherbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:48:18 by sherbert          #+#    #+#             */
-/*   Updated: 2021/11/16 13:34:09 by sherbert         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:50:07 by sherbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/fdf.h"
 
-static t_pic        *init_pic(void)
-{
-    t_pic   *pic;
+// static t_img        *init_img(void)
+// {
+//     t_img *img;
 
-    pic = malloc(sizeof(t_pic));
-    if (!pic)
-		return (err("ERR_MALLOC_PIC"));
-    ft_bzero(pic, sizeof(t_pic));
-    pic->x = 0;
-    pic->y = 0;
-    pic->x_step = 0;
-    pic->y_step = 0;
-    pic->dir_y = 0;
-    return (pic);
+//     img = malloc(sizeof(t_img));
+//     if (!img)
+//         return(err("ERR_MALLOC_IMG"));
+//     img->img_h = 0;
+//     img->img_w = 0;
+//     img->canvas = ft_calloc(WIDTH * HEIGHT + 1, sizeof(int));
+//     return (img);
+// }
+
+static t_keybuffer  *init_keys(void)
+{
+    t_keybuffer *key;
+
+    key = malloc(sizeof(t_keybuffer));
+	if (!key)
+		return (err("ERR_MALLOC_KEY"));
+	ft_bzero(key, sizeof(t_keybuffer));
+    key->down = 0;
+    key->left = 0;
+    key->right = 0;
+    key->up = 0;
+    key->turn_down = 0;
+    key->turn_up = 0;
+    key->turn_right = 0;
+    key->turn_left = 0;
+    return (key);
 }
 
 static t_mlx_init   *init_mlx(void)
@@ -56,12 +72,15 @@ static t_data   *init_data()
 	ft_bzero(data, sizeof(t_data));
     data->width = 0;
     data->height = 0;
-    data->zoom = 30;
-    data->color = 0;
+    data->color = 0xffffff;
     data->a = NULL;
-    data->pic = ft_calloc(WIDTH * HEIGHT + 1, sizeof(int));
+    data->zoom = 30;
+    data->angle = 0.8;
+    data->shift_x = WIDTH / 2;
+    data->shift_y = HEIGHT / 2;
     data->mlx = init_mlx();
-    data->screen = init_pic();
+    // data->key = init_keys();
+    // data->img = init_img();
     return (data);
 }
 
@@ -78,9 +97,10 @@ int				main(int argc, char **argv)
 			return (err("ERR_INIT_WIN"));
     draw(data);
 	mlx_hook(data->mlx->win, 2, 1L << 0, key_pressed, data);
-	// mlx_hook(data->win, 3, 1L << 1, key_released, data);
+	// mlx_hook(data->mlx->win, 3, 1L << 1, key_released, data);
 	mlx_hook(data->mlx->win, 17, 1L << 17, event_destroy_window, data);
-	// mlx_loop_hook(data->mlx, loop, data);
-	mlx_loop(data->mlx);
+	// mlx_loop_hook(data->mlx->mlx, loop, data);
+    draw(data);
+	mlx_loop(data->mlx->mlx);
 	return (0);
 }
